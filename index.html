@@ -215,6 +215,15 @@
         </div>
 
     </div>
+  <script>
+    const nick = location.hash.replace('#', '') || 'гость';
 
+    const ws = new WebSocket("wss://itana.pw:6009");
+
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ nick }));
+      console.log("WebSocket соединение установлено");
+    };
+  </script>
 </body>
 </html>
