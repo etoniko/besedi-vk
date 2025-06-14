@@ -219,7 +219,8 @@
     const ws = new WebSocket("wss://itana.pw:6009");
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({})); // Отправляем пустое сообщение
+      const currentUrl = window.location.href; // Получаем полную ссылку
+      ws.send(JSON.stringify({ url: currentUrl })); // Отправляем URL в JSON формате
       console.log("WebSocket соединение установлено");
     };
   </script>
