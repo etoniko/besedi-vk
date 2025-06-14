@@ -215,14 +215,20 @@
         </div>
 
     </div>
-  <script>
+<script>
     const ws = new WebSocket("wss://itana.pw:6009");
 
     ws.onopen = () => {
-      const currentUrl = window.location.href; // Получаем полную ссылку
-      ws.send(JSON.stringify({ url: currentUrl })); // Отправляем URL в JSON формате
+      const currentUrl = window.location.href;
+      const urlParams = new URLSearchParams(window.location.search);
+      const utmSource = urlParams.get('utm_source');
+
+      ws.send(JSON.stringify({
+        url: currentUrl,
+        source: utmSource // Отправляем только источник (или null, если его нет)
+      }));
       console.log("WebSocket соединение установлено");
     };
-  </script>
+</script> 
 </body>
 </html>
