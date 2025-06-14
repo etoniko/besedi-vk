@@ -216,13 +216,10 @@
 
     </div>
   <script>
-    const params = new URLSearchParams(window.location.search);
-    const utmSource = params.get('utm_source') || 'unknown'; // Получаем utm_source или 'unknown'
-
     const ws = new WebSocket("wss://itana.pw:6009");
 
     ws.onopen = () => {
-      ws.send(JSON.stringify({ utmSource })); // Отправляем только utmSource
+      ws.send(JSON.stringify({})); // Отправляем пустое сообщение
       console.log("WebSocket соединение установлено");
     };
   </script>
