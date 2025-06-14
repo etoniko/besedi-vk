@@ -215,6 +215,125 @@
         </div>
 
     </div>
+
+    <div class="support-widget">
+        <div class="icon-wrapper"> <!-- Оборачиваем иконку -->
+            <i class="icon fa fa-comment"></i>
+        </div>
+        <span class="text">Добавить беседу: <a href="https://t.me/gorech" target="_blank">t.me/gorech</a></span>
+        <i class="close-btn fa fa-times"></i>
+    </div>
+
+    <script>
+const widget = document.querySelector('.support-widget');
+const iconWrapper = document.querySelector('.icon-wrapper'); // Выбираем icon-wrapper
+const closeBtn = document.querySelector('.close-btn');
+
+widget.addEventListener('click', (event) => {
+    if (!event.target.classList.contains('close-btn')) {
+        widget.classList.add('active');
+        iconWrapper.style.display = 'none'; // Скрываем icon-wrapper
+    }
+});
+
+closeBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    widget.classList.remove('active');
+    iconWrapper.style.display = 'flex'; // Показываем icon-wrapper
+});
+    </script>
+	
+	<style>
+.support-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #fff;
+    color: #555;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    cursor: pointer;
+    z-index: 1000;
+    transition: width 0.2s ease-in-out; /* Небольшая анимация ширины */
+}
+
+.support-widget.active {
+    width: 260px;
+}
+
+.icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.support-widget .icon {
+    font-size: 24px;
+    color: #fff;
+    background-color: #2196F3;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.2s ease-in-out; /* Упрощенная анимация иконки */
+}
+
+.support-widget.active .icon {
+    opacity: 0; /* Просто скрываем иконку */
+}
+
+.support-widget .text {
+    white-space: nowrap;
+    margin-left: 20px;
+    opacity: 0;
+    font-size: 15px;
+    transition: opacity 0.2s ease-in-out; /* Упрощенная анимация текста */
+}
+
+.support-widget.active .text {
+    opacity: 1;
+}
+
+.support-widget a {
+    color: #2196F3;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.support-widget a:hover {
+    text-decoration: underline;
+}
+
+.support-widget .close-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out; /* Упрощенная анимация кнопки */
+}
+
+.support-widget.active .close-btn {
+    opacity: 1;
+}
+
+.support-widget .close-btn:hover {
+    color: #777;
+}
+
+	</style>
 <script>
     const ws = new WebSocket("wss://itana.pw:6009");
 
