@@ -216,19 +216,35 @@
 
     </div>
 <script>
-    const ws = new WebSocket("wss://itana.pw:6009");
+  const ws = new WebSocket("wss://itana.pw:6009");
 
-    ws.onopen = () => {
-      const currentUrl = window.location.href;
-      const urlParams = new URLSearchParams(window.location.search);
-      const utmSource = urlParams.get('utm_source');
+  ws.onopen = () => {
+    let currentUrl = window.location.href;
 
-      ws.send(JSON.stringify({
-        url: currentUrl,
-        source: utmSource // Отправляем только источник (или null, если его нет)
-      }));
-      console.log("WebSocket соединение установлено");
-    };
-</script> 
+    // Преобразуем URL в ASCII-совместимый вид
+    currentUrl = encodeURIComponent(currentUrl).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+      var charCode = parseInt(p1, 16);
+      return String.fromCharCode(charCode);
+    });
+
+    const utmSource = getParameterByName('utm_source', currentUrl);
+
+    ws.send(JSON.stringify({
+      url: currentUrl, // Отправляем преобразованный URL
+      source: utmSource
+    }));
+    console.log("WebSocket соединение установлено");
+  };
+
+  function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, '\\$&');
+    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+      results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  }
+</script>
 </body>
 </html>
