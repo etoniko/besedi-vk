@@ -112,7 +112,7 @@
         }
 
         /* Класс для расширенного описания */
-        .card.expanded .card-description {
+        .card.active .card-description {
             height: auto; /* Автоматическая высота для отображения всего контента */
             overflow: visible; /* Показываем весь контент */
         }
@@ -181,11 +181,6 @@
   animation: slideArrow 1s ease-in-out infinite alternate; /* Removed :hover */
 }
     </style>
-    <script>
-        function toggleDescription(card) {
-            card.classList.toggle('expanded');
-        }
-    </script>
 </head>
 <body>
 
